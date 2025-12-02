@@ -23,7 +23,7 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto flex items-center py-4 px-6 justify-between">
+      <div className="container mx-auto flex items-center py-4 px-6 justify-between relative">
         {/* Logo */}
         <Link to="/">
           <img
@@ -69,31 +69,44 @@ const Header = () => {
           {/* Mobile Hamburger */}
           <button
             className="md:hidden text-2xl text-black ml-2"
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => setMenuOpen(true)}
           >
-            {menuOpen ? <FiX /> : <FiMenu />}
+            <FiMenu />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-white shadow-md">
-          <ul className="flex flex-col space-y-4 px-6 py-4 text-black text-lg">
-            {menuItems.map((item) => (
-              <li key={item.name}>
-                <NavLink
-                  to={item.path}
-                  className={linkClass}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+      {/* Mobile Menu (Right Slide) */}
+      <div
+        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-xl z-50 transform transition-transform duration-300 md:hidden ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Close Icon */}
+        <div className="flex justify-end p-4">
+          <button
+            className="text-2xl text-black"
+            onClick={() => setMenuOpen(false)}
+          >
+            <FiX />
+          </button>
         </div>
-      )}
+
+        {/* Menu Items */}
+        <ul className="flex flex-col space-y-6 px-6">
+          {menuItems.map((item) => (
+            <li key={item.name}>
+              <NavLink
+                to={item.path}
+                className={linkClass}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.name}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </div>
     </header>
   );
 };
