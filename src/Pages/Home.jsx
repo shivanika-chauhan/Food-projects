@@ -3,7 +3,7 @@ import Slider from '../components/Slider'
 import Welcome from '../components/Welcome'
 import Footer from '../components/Footer'
 import About from '../components/About'
-import AboutUs from '../components/Aboutus'
+import AboutUs from '../components/AboutUs'
 const Home = () => {
   return (
     <div>
